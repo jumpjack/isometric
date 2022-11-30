@@ -62,10 +62,79 @@
 
       function launch() {
 
-        jsonLoader(['map.json'/*isometric-mio-minus.json'*/, 'imageFiles.json']).then(function(jsonResponse) { // First file is the map layer in Tiled format (only map, not whole json file)
+        jsonLoader(['map.json'/*isometric-mio-minus.json'*/, 'imageFiles.json']).then(function(jsonResponse) {
+		 // First parameter is the file containing the map layers in Tiled format (only map, not whole json file)
+		 // {
+		 //	  "ground": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "height": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "objects": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "particles": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ]
+		 // }
+		 //
+		 // Second parameter is the file containing the tilesets:
+		 // {
+		 //   "groundImages": [
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	],
+		 // 	"objectImages" : [
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	],
+		 // 	"playerImages" : [3
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	]
+		 // }
 
 console.log("jsonResponse",jsonResponse);
-//console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);
+
+
+// jsonResponse:
+//    0  (layers):
+//          ground (element 0 = row 0)
+//             [
+//                [x,x,x,x,x,...] (element 0 = column 0)
+//                [x,x,x,x,x,...]
+//                [x,x,x,x,x,...]
+//                ....
+//             ]
+//          height  [[]]
+//          objects [[]]
+//          particles [[]]
+//
+//    1  (tilesets):
+//          groundImages
+//              filename1
+//              filename2
+//              filename3
+//              ....
+//
+//          objectImages
+//          playerImages
 
           var images = [
             {
@@ -78,6 +147,13 @@ console.log("jsonResponse",jsonResponse);
               graphics: jsonResponse[1].playerImages
             }
           ];
+
+// images:
+// [
+//    {graphics: tileset1},
+//    {graphics: tileset2},
+//    {graphics: tileset3},
+// ]
 
           imgLoader(images).then(function(imgResponse) {
             var tileEngine = new main(0, 0, 14, 14, imgResponse[2]);
@@ -93,6 +169,9 @@ console.log("imgResponse:",imgResponse);
 //  heightMap: (optional?)
 //  tileHeight:
 //  tileWidth:
+
+
+
 
             tileEngine.init([
               {
