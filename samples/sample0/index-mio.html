@@ -304,7 +304,7 @@ console.log("KEY:", pressed);
               calculatePaths = 0;
             }
 console.log("mapLayers:",mapLayers);   
-console.log("map:",map);            
+console.log("map:",mapLayers.map);            
             for (var i = startY, n = startY + rangeY; i < n; i++) {
               for (var j = startX, h = startX + rangeX; j < h; j++) {
                 mapLayers.map(function(layer) {
