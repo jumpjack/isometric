@@ -224,6 +224,9 @@ console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);
         
         var input = new CanvasInput(document, CanvasControl());
         input.keyboard(function(pressed) {
+console.log("mapLayers:",mapLayers);   
+console.log("map:",mapLayers.map);            
+          
 console.log("KEY:", pressed);          
           switch(pressed) {
             case 38:
@@ -303,8 +306,6 @@ console.log("KEY:", pressed);
               });
               calculatePaths = 0;
             }
-console.log("mapLayers:",mapLayers);   
-console.log("map:",mapLayers.map);            
             for (var i = startY, n = startY + rangeY; i < n; i++) {
               for (var j = startX, h = startX + rangeX; j < h; j++) {
                 mapLayers.map(function(layer) {
