@@ -112,7 +112,7 @@ console.log("layer:", jsonResponse[0].layers[0].data);
             tileEngine.init([
               {
                 title: "Ground Layer",
-                layout: jsonResponse[0].layers[0].data,
+                layout: jsonResponse[0].ground,/*.layers[0].data,*/
                 graphics: imgResponse[0].files,
                 graphicsDictionary: imgResponse[0].dictionary,
                 shadowDistance: {
