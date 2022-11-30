@@ -108,10 +108,11 @@ THE SOFTWARE.
           imgLoader(images).then(function(imgResponse) {
             var tileEngine = new main(0, 0, 14, 14, imgResponse[2]);
 console.log("jsonResponse:", jsonResponse , ", imgResponse:",imgResponse);           
+console.log("layer:", jsonResponse[0].leyers[0].data);           
             tileEngine.init([
               {
                 title: "Ground Layer",
-                layout: jsonResponse[0].ground,
+                layout: jsonResponse[0].leyers[0].data,
                 graphics: imgResponse[0].files,
                 graphicsDictionary: imgResponse[0].dictionary,
                 shadowDistance: {
