@@ -91,7 +91,7 @@ THE SOFTWARE.
 
       function launch() {
 
-        jsonLoader(['isometric-mio-minus.json', 'imageFiles.json']).then(function(jsonResponse) {
+        jsonLoader(['map.json'/*isometric-mio-minus.json'*/, 'imageFiles.json']).then(function(jsonResponse) { // First file is the map layer in Tiled format (only map, not whole json file)
 
           var images = [
             {
