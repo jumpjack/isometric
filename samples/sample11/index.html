@@ -89,7 +89,7 @@ THE SOFTWARE.
 
             var tileEngine = new main(0, 0, jsonResponse[0].height, jsonResponse[0].width);
             tileEngine.init([{
-              layout: [jsonResponse[0].layers[0].data,jsonResponse[0].layers[1].data,jsonResponse[0].layers[2].data],
+              layout: jsonResponse[0].layers[0].data,
               graphics: imgResponse[0].files,
               graphicsDictionary: imgResponse[0].dictionary,
               tileWidth: 32,
