@@ -1,6 +1,6 @@
 
 <!--
-/*  
+/*
 Copyright (c) 2013 Iain Hamilton & Edward Smyth
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. 
+THE SOFTWARE.
 
 - Author : Iain M Hamilton - <iain@beakable.com> - http://www.beakable.com
 
@@ -77,11 +77,11 @@ THE SOFTWARE.
 
       // -- FPS --------------------------------
       window.requestAnimFrame = (function() {
-        return window.requestAnimationFrame || 
-        window.webkitRequestAnimationFrame  || 
-        window.mozRequestAnimationFrame     || 
-        window.oRequestAnimationFrame       ||  
-        window.msRequestAnimationFrame      || 
+        return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame  ||
+        window.mozRequestAnimationFrame     ||
+        window.oRequestAnimationFrame       ||
+        window.msRequestAnimationFrame      ||
         function(callback, element) {
           window.setTimeout(callback, 1000 / 60);
         };
@@ -92,6 +92,9 @@ THE SOFTWARE.
       function launch() {
 
         jsonLoader(['map.json'/*isometric-mio-minus.json'*/, 'imageFiles.json']).then(function(jsonResponse) { // First file is the map layer in Tiled format (only map, not whole json file)
+
+console.log("jsonResponse",jsonResponse);
+//console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);
 
           var images = [
             {
@@ -107,8 +110,19 @@ THE SOFTWARE.
 
           imgLoader(images).then(function(imgResponse) {
             var tileEngine = new main(0, 0, 14, 14, imgResponse[2]);
-console.log("jsonResponse:", jsonResponse , ", imgResponse:",imgResponse);           
-console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);           
+console.log(""imgResponse:",imgResponse);
+
+
+// tileEngine.init([ layer1, layer2, ...])
+// layer structure:
+//  title. (string)
+//  layout: [tilenum,tilenum,tilenum,...]  ("data" element of Tiled json file)
+//  graphics: (img DOM elements associated to filames?)
+//  graphicsDictionary:  (filenames)
+//  heightMap: (optional?)
+//  tileHeight:
+//  tileWidth:
+
             tileEngine.init([
               {
                 title: "Ground Layer",
@@ -221,13 +235,13 @@ console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);
           marginRight: "auto"
         });
         CanvasControl.fullScreen();
-        
+
         var input = new CanvasInput(document, CanvasControl());
         input.keyboard(function(pressed) {
-console.log("mapLayers:",mapLayers);   
-//console.log("map:",mapLayers.map);            
-          
-console.log("KEY:", pressed);          
+console.log("mapLayers:",mapLayers);
+//console.log("map:",mapLayers.map);
+
+console.log("KEY:", pressed);
           switch(pressed) {
             case 38:
               if (Number(mapLayers[1].getTile([player.xPos], [player.yPos - 1])) === 0) {
@@ -291,13 +305,13 @@ console.log("KEY:", pressed);
             break;
           }
         });
-        
+
         function draw() {
           context.clearRect(0, 0, CanvasControl().width, CanvasControl().height);
           calculatePaths ++;
            if(calculatePaths === 100) {
               enemy.map(function(e) {
-                pathfind(e.id, [e.xPos, e.yPos], [player.xPos, player.yPos], mapLayers[1].getLayout(), false).then(function (data) { 
+                pathfind(e.id, [e.xPos, e.yPos], [player.xPos, player.yPos], mapLayers[1].getLayout(), false).then(function (data) {
                   if (data.length > 0 && data[1] !== undefined) {
                     e.xPos = data[1].x;
                     e.yPos = data[1].y;
@@ -320,7 +334,7 @@ console.log("KEY:", pressed);
                     if (i === e.xPos  && j === e.yPos  && layer.getTitle() === "Object Layer") {
                       layer.draw(i, j, e.image);
                     }
-                  });          
+                  });
                 });
              }
            }
@@ -330,7 +344,7 @@ console.log("KEY:", pressed);
 
         return {
           init: function(layers) {
-console.log("Layers:",layers);            
+console.log("Layers:",layers);
             for (var i = 0; i < 0 + layers.length; i++) {
               mapLayers[i] = new TileField(context, CanvasControl().height, CanvasControl().width);
               mapLayers[i].setup(layers[i]);
