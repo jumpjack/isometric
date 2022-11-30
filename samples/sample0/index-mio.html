@@ -224,6 +224,7 @@ console.log("layer:", jsonResponse[0].layers[0].data);
         
         var input = new CanvasInput(document, CanvasControl());
         input.keyboard(function(pressed) {
+console.log("KEY:", pressed);          
           switch(pressed) {
             case 38:
               if (Number(mapLayers[1].getTile([player.xPos], [player.yPos - 1])) === 0) {
@@ -302,6 +303,8 @@ console.log("layer:", jsonResponse[0].layers[0].data);
               });
               calculatePaths = 0;
             }
+console.log("mapLayers:",mapLayers);   
+console.log("map:",map);            
             for (var i = startY, n = startY + rangeY; i < n; i++) {
               for (var j = startX, h = startX + rangeX; j < h; j++) {
                 mapLayers.map(function(layer) {
