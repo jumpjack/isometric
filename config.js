@@ -1,3 +1,3 @@
 requirejs.config({
-    baseUrl: "/isometric/"
+    baseUrl: "/jsiso-isometric/" // debug -  make relative!
 });
