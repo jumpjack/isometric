@@ -345,7 +345,7 @@ console.log("imgResponse:",imgResponse);
 
         var input = new CanvasInput(document, CanvasControl());
         input.keyboard(function(pressed) {
-console.log("KEY:", pressed);
+//console.log("KEY:", pressed);
           switch(pressed) {
             case 38:
               if (Number(mapLayers[1].getTile([player.xPos], [player.yPos - 1])) === 0) {
