@@ -251,14 +251,16 @@ console.log("imgResponse:",imgResponse);
                   heightTile: imgResponse[0].files["blank-block.png"]
                 },*/
                 tileHeight: 50,
-                tileWidth: 100
-              },
+                tileWidth: 100,
+								height: 32,
+								width : 32
+              }/*,
               {
                 title: "Object Layer",
                 layout: jsonResponse[0].objects,
                 graphics: imgResponse[0].files,
                 graphicsDictionary: imgResponse[1].dictionary,
-                /*zeroIsBlank: true,
+                zeroIsBlank: true,
                 alphaWhenFocusBehind: {
                   objectApplied: imgResponse[2].files["main.png"],
                   apply: true
@@ -274,10 +276,10 @@ console.log("imgResponse:",imgResponse);
                   map: jsonResponse[0].height,
                   offset: 20,
                   heightMapOnTop: true
-                },*/
+                },
                 tileHeight: 50,
                 tileWidth: 100
-              }
+              }*/
             ]);
           });
         });
