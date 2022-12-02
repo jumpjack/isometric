@@ -75,7 +75,7 @@
     "../img/objects/well1.png",
     "../img/objects/window1.png"
   ],
-  "playerimages": [
+  "playerImages": [
     "../img/players/enemy1.png",
     "../img/players/enemy2.png",
     "../img/players/enemy3.png",
