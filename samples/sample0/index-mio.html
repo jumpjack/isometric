@@ -62,10 +62,83 @@
 
       function launch() {
 
-        jsonLoader(['map.json'/*isometric-mio-minus.json'*/, 'imageFiles.json']).then(function(jsonResponse) { // First file is the map layer in Tiled format (only map, not whole json file)
+        jsonLoader(['mymap.json', 'myImageFiles.json']).then(function(jsonResponse) {
+		////// function jsonLoader() is actually the function defined in file  jsiso/json/load.js: it accepts an array of json files and returns an array of json objects
+
+		 // First parameter is the file containing the map layers in Tiled format (only map, not whole json file)
+		 // {
+		 //	  "ground": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "height": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "objects": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ],
+		 //	  "particles": [
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    [x,x,x,x,...],
+		 //	    ...
+		 //	  ]
+		 // }
+		 //
+		 // Second parameter is the file containing the list of images used for each layer:
+		 // {
+		 //   "groundImages": [
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	],
+		 // 	"objectImages" : [
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	],
+		 // 	"playerImages" : [3
+		 //     "img1.png",
+		 //     "img2.png",
+		 //     ....
+		 // 	]
+		 // }
 
 console.log("jsonResponse",jsonResponse);
-//console.log("layer:", jsonResponse[0].ground/*.layers[0].data*/);
+
+
+// jsonResponse:
+//    0  (layers):
+//          ground (element 0 = row 0)
+//             [
+//                [x,x,x,x,x,...] (element 0 = column 0)
+//                [x,x,x,x,x,...]
+//                [x,x,x,x,x,...]
+//                ....
+//             ]
+//          height  [[]]
+//          objects [[]]
+//          particles [[]]
+//
+//    1  (tilesets):
+//          groundImages  (array of filenames; the array index is the index used in layer table)
+//              filename1
+//              filename2
+//              filename3
+//              ....
+//
+//          objectImages
+//          playerImages
+
+/////// Now use second element of jsonResponse array to setup images array to be passed to imageLoader():
 
           var images = [
             {
@@ -79,20 +152,81 @@ console.log("jsonResponse",jsonResponse);
             }
           ];
 
+// images:
+// [
+//    {graphics: array of images filenames for layer 1},
+//    {graphics: array of images filenames for layer 2},
+//    {graphics: array of images filenames for layer 3},
+// ]
+
           imgLoader(images).then(function(imgResponse) {
-            var tileEngine = new main(0, 0, 14, 14, imgResponse[2]);
+// imgLoader() is actually the function defined in file jsiso/img/load.js;
+// It accepts an array of objects specifying the image locations, loads the images in memoty and returns an array of layers data; each element of the array contains images paths and images objects:
+//
+// imgResponse:
+// 0  (layer 0)
+//    dictionary: [filename1, filename2,...]
+//    files : [ img1, img2,...]                    /// Note: "files" object actually contains a list of img objects, not a list of files
+// 1  (layer 1)
+//    dictionary: [filename1, filename2,...]
+//    files : [ img1, img2,...]
+// 2  (layer 2)
+//    dictionary: [filename1, filename2,...]
+//    files : [ img1, img2,...]
+
+            var tileEngine = new main(0, 0, 14, 14, imgResponse[2]); // Create sprites (player and enemies), defining the area which defines the map scrolling
 console.log("imgResponse:",imgResponse);
 
 
-// tileEngine.init([ layer1, layer2, ...])
+///// tileEngine.init([ layer1, layer2, ...])
+
 // layer structure:
-//  title. (string)
+//  title: (string)
 //  layout: [tilenum,tilenum,tilenum,...]  ("data" element of Tiled json file)
-//  graphics: (img DOM elements associated to filames?)
+//  graphics: (img objects associated to filames)
 //  graphicsDictionary:  (filenames)
 //  heightMap: (optional?)
 //  tileHeight:
 //  tileWidth:
+//
+// Note: layers data can be taken from a json file in Tiled format, as long as imgResponse array is properly populated (see Sample11, reported here below).
+
+/*
+
+        jsonLoader(['tiled-json.json']).then(function(jsonResponse) {
+
+          var images = [
+            {
+              graphics: ["../img/isometric_grass_and_water.png"],        Single image tileset, so in tileEngine.init() you must specify tile width and height
+              spritesheet: {                                              <<<=== not used?!?
+                width: jsonResponse[0].tilesets[0].tilewidth,
+                height: jsonResponse[0].tilesets[0].tileheight,
+                firstgid: jsonResponse[0].tilesets[0].firstgid,
+                offsetX: 0,
+                offsetY: 0
+              }
+            }
+          ];
+
+          imgLoader(images).then(function(imgResponse) {
+
+            var tileEngine = new main(0, 0, jsonResponse[0].height, jsonResponse[0].width);
+            tileEngine.init([{                                            // You must pass to tileEngine.init() an array of layers structured as below:
+              layout: jsonResponse[0].layers[0].data,
+              graphics: imgResponse[0].files,
+              graphicsDictionary: imgResponse[0].dictionary,
+              tileWidth: 32,
+              tileHeight: 16,
+              width: jsonResponse[0].layers[0].width,
+              height: jsonResponse[0].layers[0].height
+            }]);
+          });
+        });
+
+*/
+
+
+
 
             tileEngine.init([
               {
