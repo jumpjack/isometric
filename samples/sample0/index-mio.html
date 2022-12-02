@@ -228,7 +228,41 @@ console.log("imgResponse:",imgResponse);
 
 
 
-            tileEngine.init([
+            tileEngine.init(
+             [{
+                title: "Graphics",
+                layout: jsonResponse[0].ground,
+                graphics: imgResponse[0].files,
+                graphicsDictionary: imgResponse[0].dictionary,
+                heightMap: {
+                  map: jsonResponse[0].height,
+                  offset: 0,
+                  heightTile: imgResponse[0].files["blank-block.png"],
+                },
+                tileHeight: 50,
+                tileWidth: 100,
+                applyInteractions: true,
+                shadow: {
+                  offset: 20, // Offset is the same height as the stack tile
+                  verticalColor: '(5, 5, 30, 0.4)',
+                  horizontalColor: '(6, 5, 50, 0.5)'
+                }
+              },
+              {
+                title: "AI",
+                layout: jsonResponse[0].objects,
+                heightMap: {
+                  map: jsonResponse[0].height,
+                  offset: 20, // Offset is the same height as the  graphics stack tile
+                  heightMapOnTop: true
+                },
+                tileHeight: 50,
+                tileWidth: 100,
+                applyInteractions: true
+              }
+            ]
+
+						/*[
               {
                 title: "Ground Layer",
                 layout: jsonResponse[0].ground,/*.layers[0].data,*/
@@ -280,7 +314,7 @@ console.log("imgResponse:",imgResponse);
                 tileHeight: 50,
                 tileWidth: 100
               }
-            ]);
+            ]*/);
           });
         });
       }
