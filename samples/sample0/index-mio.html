@@ -343,9 +343,6 @@ console.log("imgResponse:",imgResponse);
 
         var input = new CanvasInput(document, CanvasControl());
         input.keyboard(function(pressed) {
-console.log("mapLayers:",mapLayers);
-//console.log("map:",mapLayers.map);
-
 console.log("KEY:", pressed);
           switch(pressed) {
             case 38:
@@ -456,6 +453,7 @@ console.log("Layers:",layers);
               mapLayers[i].align("h-center", CanvasControl().width, xrange, 0);
               mapLayers[i].align("v-center", CanvasControl().height, yrange, 0);
             }
+console.log("mapLayers:",mapLayers);
             rain = new EffectLoader().getEffect("rain", context, utils.range(-100, CanvasControl().height), utils.range(-100, CanvasControl().width));
             draw();
           }
