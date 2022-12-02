@@ -1,5 +1,6 @@
 
-- [Examples](https://jumpjack.github.io/isometric/samples/)
+- [Examples](https://jumpjack.github.io/jsiso-isometric/samples/)
+    - Example 0 (isometric multilayer) - [original](https://jumpjack.github.io/jsiso-isometric/samples/sample0/index.html) - [mine](https://jumpjack.github.io/jsiso-isometric/samples/sample0/index-mio.html)
 - [jsIso home page](https://www.jsiso.com/)
 
 --------------------
