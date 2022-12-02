@@ -122,9 +122,9 @@ console.log("imgResponse",imgResponse);
 
         return {
           init: function(layers) {
-console.log("Quanti layer?", layers.length, mapLayers);
+console.log("Quanti layer?", layers.length, layers, mapLayers);
             for (var i = 1; i < 0 + layers.length; i++) {
-console.log("Disegno layer ", i);
+console.log("Disegno layer ", i, layers[i]);
               mapLayers[i] = new TileField(context, CanvasControl().height, CanvasControl().width);
               mapLayers[i].setup(layers[i]);
 
