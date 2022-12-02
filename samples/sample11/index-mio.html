@@ -45,6 +45,8 @@
 
         jsonLoader(['isometric-mio-minus.json']).then(function(jsonResponse) {
 
+console.log("jsonResponse",jsonResponse);
+
           var images = [
             {
               graphics: ["../img/single.png"],
@@ -59,6 +61,7 @@
           ];
 
           imgLoader(images).then(function(imgResponse) {
+console.log("imgResponse",imgResponse);
 
             var tileEngine = new main(0, 0, jsonResponse[0].height, jsonResponse[0].width);
             tileEngine.init([
